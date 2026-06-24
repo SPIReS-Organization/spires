@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "spires"
+version = "0.1.0"
+description = "SPIReS metapackage: installs the SPIReS snow-retrieval package family"
+readme = { file = "README.md", content-type = "text/markdown" }
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Niklas Griessbaum" }]
+keywords = ["snow", "remote sensing", "SPIRES", "metapackage"]
+
+# Default install (`pip install spires`) pulls the core: the data contract plus
+# the inversion engine. Functional add-on packages are opt-in extras below.
+dependencies = [
+    "spires-contract",
+    "spires-inversion",
+]
+
+[project.optional-dependencies]
+io = ["spires-io"]
+lut = ["spires-lut"]
+r0 = ["spires-r0"]
+postprocess = ["spires-postprocess"]
+all = [
+    "spires-io",
+    "spires-lut",
+    "spires-r0",
+    "spires-postprocess",
+]
+
+[project.urls]
+Homepage = "https://github.com/SPIReS-Organization/spires"
+Repository = "https://github.com/SPIReS-Organization/spires"
+
+# Metapackage: no source modules of its own. It installs no `spires` import
+# module (that name is intentionally left free; the inversion engine imports as
+# `spires_inversion`). setuptools would otherwise try to auto-discover packages,
+# so pin an empty package list.
+[tool.setuptools]
+packages = []
