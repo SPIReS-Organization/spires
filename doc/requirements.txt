@@ -1,0 +1,12 @@
+# Documentation build requirements for Read the Docs.
+#
+# Umbrella docs are narrative + family map only — we never import sub-package
+# code, so no runtime/scientific deps and no C++ mocking are needed here.
+
+sphinx>=4.0
+pydata-sphinx-theme
+myst-parser
+sphinx-markdown-tables
+
+# Version detection from git tags (matches the package's setuptools_scm setup)
+setuptools-scm
