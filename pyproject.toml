@@ -1,10 +1,9 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
+requires = ["setuptools>=61.0", "wheel", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "spires"
-version = "0.1.0"
 description = "SPIReS metapackage: installs the SPIReS snow-retrieval package family"
 readme = { file = "README.md", content-type = "text/markdown" }
 requires-python = ">=3.9"
@@ -15,20 +14,21 @@ keywords = ["snow", "remote sensing", "SPIRES", "metapackage"]
 # Default install (`pip install spires`) pulls the core: the data contract plus
 # the inversion engine. Functional add-on packages are opt-in extras below.
 dependencies = [
-    "spires-contract",
-    "spires-inversion",
+    "spires-contract>=0.1.0",
+    "spires-inversion>=0.1.0",
 ]
+dynamic = ["version"]  # version derived from git tags via setuptools_scm
 
 [project.optional-dependencies]
-io = ["spires-io"]
-lut = ["spires-lut"]
-r0 = ["spires-r0"]
-postprocess = ["spires-postprocess"]
+io = ["spires-io>=0.1.0"]
+lut = ["spires-lut>=0.1.0"]
+r0 = ["spires-r0>=0.1.0"]
+postprocess = ["spires-postprocess>=0.1.0"]
 all = [
-    "spires-io",
-    "spires-lut",
-    "spires-r0",
-    "spires-postprocess",
+    "spires-io>=0.1.0",
+    "spires-lut>=0.1.0",
+    "spires-r0>=0.1.0",
+    "spires-postprocess>=0.1.0",
 ]
 
 [project.urls]
@@ -41,3 +41,7 @@ Repository = "https://github.com/SPIReS-Organization/spires"
 # so pin an empty package list.
 [tool.setuptools]
 packages = []
+
+[tool.setuptools_scm]
+version_scheme = "post-release"
+local_scheme = "node-and-date"
