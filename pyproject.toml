@@ -24,23 +24,27 @@ io = ["spires-io>=0.1.0"]
 lut = ["spires-lut>=0.1.0"]
 r0 = ["spires-r0>=0.1.0"]
 postprocess = ["spires-postprocess>=0.1.0"]
+# Scale-out batch processing (dask/slurm). Lives in the spires-batch dist and
+# is opt-in so heavy backends stay out of a bare `pip install spires`.
+batch = ["spires-batch>=0.1.0"]
 all = [
     "spires-io>=0.1.0",
     "spires-lut>=0.1.0",
     "spires-r0>=0.1.0",
     "spires-postprocess>=0.1.0",
+    "spires-batch>=0.1.0",
 ]
 
 [project.urls]
 Homepage = "https://github.com/SPIReS-Organization/spires"
 Repository = "https://github.com/SPIReS-Organization/spires"
 
-# Metapackage: no source modules of its own. It installs no `spires` import
-# module (that name is intentionally left free; the inversion engine imports as
-# `spires_inversion`). setuptools would otherwise try to auto-discover packages,
-# so pin an empty package list.
-[tool.setuptools]
-packages = []
+# The metapackage owns the `spires` import name and ships a *light* convenience
+# layer under src/spires (the single-unit `spires.invert` kernel + CLI). Scale-out
+# batch processing lives in the separate `spires-batch` dist, surfaced as the
+# `batch` extra below — it never lands in a bare `pip install spires`.
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [tool.setuptools_scm]
 version_scheme = "post-release"
