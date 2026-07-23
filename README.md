@@ -68,15 +68,17 @@ component specifically (e.g. its independent software release on Zenodo).
 
 ## Documentation
 
-The family uses a **landing-site + link-out** model. This metapackage hosts
-the umbrella docs — the family's front door: what SPIReS is, the family table,
-the install matrix, and an architecture/dataflow overview
-(io → lut → r0 → inversion → postprocess). Each sub-package keeps its **own**
-hosted API reference; the umbrella links out to them (via Sphinx
-`intersphinx`, so cross-references resolve). Meta owns the *map*; each repo
-owns its *content*. No unified single-build site that absorbs every
-sub-package's API docs — that would re-couple what the architecture keeps
-decoupled.
+The family docs are a **unified Read the Docs portal built from subprojects**.
+This metapackage is the parent `spires` RTD project — the family's front door:
+what SPIReS is, the family table, the install matrix, and an
+architecture/dataflow overview (io → lut → r0 → inversion → postprocess). Each
+sub-package is a **subproject** with its own independently-built API reference,
+served under the shared `spires.readthedocs.io` namespace
+(`spires.readthedocs.io/projects/<pkg>/`) with one search index, and
+cross-linked via Sphinx `intersphinx`. Meta owns the *map*; each repo owns its
+*content* and its own build. This keeps a single reader-facing portal without a
+single monolithic build — a release in one repo rebuilds only its subproject,
+so the docs stay as decoupled as the architecture.
 
 ## Open questions (this is a stub — discussion welcome)
 

@@ -38,15 +38,13 @@ exclude_patterns = []
 # resolves cross-references for packages that publish an objects.inv; packages
 # without hosted docs yet are reached via plain links (see packages.md).
 intersphinx_mapping = {
-    # spires-inversion's hosted docs use the "SpiPy" project name on RTD.
-    "spires_inversion": ("https://spipy.readthedocs.io/en/latest/", None),
-    # Add as each package publishes docs:
-    # "spires_contract":     ("https://spires-contract.readthedocs.io/en/latest/", None),
-    # "spires_io":           ("https://spires-io.readthedocs.io/en/latest/", None),
-    # "spires_lut":          ("https://spires-lut.readthedocs.io/en/latest/", None),
-    # "spires_r0":           ("https://spires-r0.readthedocs.io/en/latest/", None),
-    # "spires_postprocess":  ("https://spires-postprocess.readthedocs.io/en/latest/", None),
-    # "spires_batch":        ("https://spires-batch.readthedocs.io/en/latest/", None),
+    "spires_contract":    ("https://spires-contract.readthedocs.io/en/latest/", None),
+    "spires_inversion":   ("https://spires-inversion.readthedocs.io/en/latest/", None),
+    "spires_io":          ("https://spires-io.readthedocs.io/en/latest/", None),
+    "spires_lut":         ("https://spires-lut.readthedocs.io/en/latest/", None),
+    "spires_r0":          ("https://spires-r0.readthedocs.io/en/latest/", None),
+    "spires_postprocess": ("https://spires-postprocess.readthedocs.io/en/latest/", None),
+    "spires_batch":       ("https://spires-batch.readthedocs.io/en/latest/", None),
 }
 
 # Don't fail the build when an intersphinx target is unreachable (e.g. a
