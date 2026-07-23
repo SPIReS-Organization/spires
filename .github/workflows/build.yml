@@ -1,0 +1,42 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build + import smoke on Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.9', '3.10', '3.11', '3.12']
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # full history for setuptools-scm
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Build sdist + wheel
+        run: |
+          python -m pip install --upgrade pip build
+          python -m build
+
+      # The `spires` metapackage aggregates the family (incl. the compiled
+      # spires-inversion) via its deps, but its own import surface is a light
+      # convenience layer that does not import the family at load time. Install
+      # without deps so CI validates packaging + import without compiling the
+      # C++ extension or resolving not-yet-published family packages.
+      - name: Install (no deps) + import smoke test
+        run: |
+          pip install --no-deps dist/*.whl
+          python -c "import spires; print('spires', spires.__version__)"
