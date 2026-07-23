@@ -54,6 +54,18 @@ The line is deliberate, to keep `pip install spires` light:
   extra. Heavy backends (dask, slurm) never land in a bare `pip install
   spires`.
 
+## Citation
+
+To cite SPIReS as a whole, use the [`CITATION.cff`](CITATION.cff) in this
+repository — GitHub's "Cite this repository" button renders BibTeX/APA from it.
+It is the canonical, project-wide citation for the package family. Please also
+cite the algorithm paper (Bair, Stillinger, & Dozier, 2021), which it references
+as the preferred citation.
+
+The [`spires-inversion`](https://github.com/SPIReS-Organization/spires-inversion)
+engine additionally carries its own `CITATION.cff` and DOI for citing that
+component specifically (e.g. its independent software release on Zenodo).
+
 ## Documentation
 
 The family uses a **landing-site + link-out** model. This metapackage hosts
