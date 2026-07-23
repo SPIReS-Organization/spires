@@ -35,7 +35,7 @@ Each package communicates with the others only through contract-validated
 
 Beyond aggregating installs, `spires` owns the `spires` **import name** and
 provides a *light* convenience layer: the unified API that wires
-io → lut → r0 → inversion → postprocess for **one** unit of work, plus a CLI
+io + lut + r0 → inversion → postprocess for **one** unit of work, plus a CLI
 that runs that on a single granule/file.
 
 ```python
@@ -71,7 +71,7 @@ component specifically (e.g. its independent software release on Zenodo).
 The family docs are a **unified Read the Docs portal built from subprojects**.
 This metapackage is the parent `spires` RTD project — the family's front door:
 what SPIReS is, the family table, the install matrix, and an
-architecture/dataflow overview (io → lut → r0 → inversion → postprocess). Each
+architecture/dataflow overview (io + lut + r0 → inversion → postprocess). Each
 sub-package is a **subproject** with its own independently-built API reference,
 served under the shared `spires.readthedocs.io` namespace
 (`spires.readthedocs.io/projects/<pkg>/`) with one search index, and

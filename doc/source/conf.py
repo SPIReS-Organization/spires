@@ -4,8 +4,8 @@
 # -- Project information -----------------------------------------------------
 
 project = "SPIReS"
-copyright = "2026, Niklas Griessbaum"
-author = "Niklas Griessbaum"
+copyright = "2026, The SPIReS Organization"
+author = "The SPIReS Organization"
 
 # Version from the installed `spires` dist (setuptools_scm at build time);
 # fall back to reading git tags directly in a source checkout.
@@ -55,3 +55,8 @@ suppress_warnings = ["myst.xref_missing"]
 # Match the rest of the family (spires-inversion uses pydata-sphinx-theme).
 
 html_theme = "pydata_sphinx_theme"
+
+# SPIReS family logo (shared brand across the portal + subprojects).
+html_static_path = ["_static"]
+html_logo = "_static/logo.svg"
+html_favicon = "_static/logo.svg"

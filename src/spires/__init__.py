@@ -3,7 +3,7 @@
 The distribution ``spires`` aggregates the package family (see the extras in
 ``pyproject.toml``) and owns the ``spires`` import name. Beyond aggregation it
 provides a *light* convenience layer: the unified entry point that wires
-io -> lut -> r0 -> inversion -> postprocess for **one** unit of work.
+io + lut + r0 -> inversion -> postprocess for **one** unit of work.
 
 Anything that scales that across **many** units (stacks of granules,
 spacetime cubes, dask/slurm) lives in ``spires-batch``, not here, so a bare
@@ -26,7 +26,7 @@ __all__ = ["invert"]
 def invert(granule):
     """Run the SPIReS retrieval for a single unit of work.
 
-    Wires the family together (io -> lut -> r0 -> inversion -> postprocess) for
+    Wires the family together (io + lut + r0 -> inversion -> postprocess) for
     one granule/cube, in-process. This is the light, single-unit kernel that
     ``spires-batch`` parallelizes across many units.
 
@@ -35,5 +35,5 @@ def invert(granule):
     """
     raise NotImplementedError(
         "spires.invert is not implemented yet. The convenience layer is "
-        "scaffolding; see the spires-meta README for the open design questions."
+        "scaffolding; see the spires README for the open design questions."
     )

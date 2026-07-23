@@ -8,26 +8,34 @@ swapped without importing another's internals.
 
 ## Dataflow
 
+The inversion has **three independent inputs** — surface reflectance (from
+`spires-io`), the Mie-scattering lookup table (`spires-lut`), and the background
+R₀ reflectance (`spires-r0`). These are not a linear chain: `spires-lut` and
+`spires-r0` do not feed each other, and R₀ is built from a **stack of
+reflectances** produced by `spires-io`, not from the LUT.
+
 ```
-            ┌──────────────┐
-   sensor   │  spires-io   │  load + reproject MODIS / Sentinel-2 / Landsat
-   granule ─►              ├─────────────► surface reflectance (contract)
-            └──────────────┘                       │
-                                                    ▼
-   ┌──────────────┐   ┌──────────────┐   ┌────────────────────┐
-   │  spires-lut  │   │  spires-r0   │   │  spires-inversion   │
-   │ reflectance  ├──►│ background   ├──►│  invert RT model    ├──► retrieval
-   │ lookup table │   │ R₀           │   │  against the LUT    │    (fsca,
-   └──────────────┘   └──────────────┘   └────────────────────┘     grain size,
-                                                    │                LAP)
-                                                    ▼
-                                          ┌────────────────────┐
-                                          │ spires-postprocess  │  cloud gap-fill,
-                                          │                     ├─► tree masking /
-                                          └────────────────────┘    inpainting
+   spires-lut ──────────────────────────┐  (reflectance lookup table)
+                                         │
+                                         ▼
+   spires-io ───────────────────► spires-inversion ──► spires-postprocess
+   (surface reflectance) ─┐    ┌─►(invert the RT model    (cloud gap-fill,
+        │                 │    │  against the LUT)         tree masking /
+        │ stack of        │    │        │                  inpainting)
+        │ reflectances    │    │ R₀     ▼
+        ▼                 │    │   retrieval (fsca, grain size, LAP)
+   spires-r0 ─────────────┘────┘
+   (background R₀)
 ```
 
-In short: **io → lut → r0 → inversion → postprocess**, with `spires-contract`
+- **spires-io** produces surface reflectance, which is both the inversion
+  *target* and the input `spires-r0` reads (as a reflectance stack).
+- **spires-r0** derives the background R₀ and hands it to the inversion.
+- **spires-lut** is an independent input: the reflectance LUT the inversion
+  interpolates against.
+
+In short: **io + lut + r0 → inversion → postprocess** — io and its derived R₀
+plus the standalone LUT converge on the inversion — with `spires-contract`
 defining the `xarray` schema at every boundary.
 
 ## Two ways to run it
