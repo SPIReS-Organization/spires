@@ -26,6 +26,7 @@ authors:
   - family-names: Wilder
     given-names: Brent
     affiliation: "NASA Jet Propulsion Laboratory"
+    orcid: "https://orcid.org/0000-0003-3340-7862"
 repository-code: "https://github.com/SPIReS-Organization/spires"
 url: "https://github.com/SPIReS-Organization"
 license: MIT
