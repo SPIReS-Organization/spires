@@ -15,7 +15,10 @@ keywords = ["snow", "remote sensing", "SPIRES", "metapackage"]
 # the inversion engine. Functional add-on packages are opt-in extras below.
 dependencies = [
     "spires-contract>=0.1.0",
-    "spires-inversion>=0.1.0",
+    # >=0.4.0: every earlier tag declares float32 output while the dask kernel
+    # returns float64 blocks, so a downstream .astype(float32) is a silent no-op
+    # and results land on disk at twice the size (spires-inversion#15).
+    "spires-inversion>=0.4.0",
 ]
 dynamic = ["version"]  # version derived from git tags via setuptools_scm
 
